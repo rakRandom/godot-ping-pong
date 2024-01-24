@@ -1,0 +1,98 @@
+[gd_scene load_steps=6 format=3 uid="uid://8v3pq1iwged8"]
+
+[ext_resource type="PackedScene" uid="uid://dla0imbj1hi4a" path="res://scenes/player.tscn" id="1_8kjr3"]
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_f3bxg"]
+[ext_resource type="FontFile" uid="uid://t5wn68igwoky" path="res://assets/fonts/uni-sans.heavy-caps.otf" id="2_nmw42"]
+[ext_resource type="AudioStream" uid="uid://chk5lyfhuaa06" path="res://assets/audios/background_music.mp3" id="4_yu3fa"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_48r1y"]
+bg_color = Color(0, 0, 0, 0.235294)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[node name="Menu" type="Node2D"]
+script = ExtResource("1_f3bxg")
+
+[node name="KinematicObjects" type="Node" parent="."]
+
+[node name="Player1" parent="KinematicObjects" instance=ExtResource("1_8kjr3")]
+position = Vector2(50, 360)
+
+[node name="DivisorLine" type="Line2D" parent="KinematicObjects"]
+points = PackedVector2Array(640, 734, 640, -9)
+
+[node name="Player2" parent="KinematicObjects" instance=ExtResource("1_8kjr3")]
+position = Vector2(1230, 360)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="MainPanel" type="Panel" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -464.0
+offset_top = -296.0
+offset_right = 464.0
+offset_bottom = 296.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_48r1y")
+
+[node name="Title" type="Label" parent="UI/MainPanel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -168.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_nmw42")
+theme_override_font_sizes/font_size = 100
+text = "Ping and Pong"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayButton" type="Button" parent="UI/MainPanel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 308.0
+offset_top = 55.0
+offset_right = -308.0
+offset_bottom = 157.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Play"
+
+[node name="ResetDataButton" type="Button" parent="UI/MainPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -83.0
+offset_top = -62.0
+offset_right = 83.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Reset Data"
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_yu3fa")
+autoplay = true
+
+[connection signal="button_up" from="UI/MainPanel/PlayButton" to="." method="_on_play_button_button_up"]
+[connection signal="button_up" from="UI/MainPanel/ResetDataButton" to="." method="_on_reset_data_button_button_up"]
+[connection signal="finished" from="BackgroundMusic" to="." method="_on_background_music_finished"]

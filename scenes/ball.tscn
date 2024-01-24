@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://mnq22hyrkwre"]
+
+[ext_resource type="Script" path="res://scripts/ball.gd" id="1_2386b"]
+[ext_resource type="Texture2D" uid="uid://dqxppq68pgnil" path="res://assets/images/ball.png" id="1_q4oo8"]
+[ext_resource type="AudioStream" uid="uid://bc8w021lpra5t" path="res://assets/audios/ball_colliding_sound.wav" id="3_hgdmg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5r3x1"]
+radius = 20.0
+
+[sub_resource type="Curve" id="Curve_bk3sm"]
+max_value = 100.0
+_data = [Vector2(0, 0), 0.0, 39.7839, 0, 0, Vector2(1, 100), 31.6419, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_0634a"]
+_data = [Vector2(0, 0.879121), 0.0, -0.790741, 0, 0, Vector2(1, 0), -0.838305, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_nldlj"]
+colors = PackedColorArray(1, 1, 1, 0.784314, 1, 1, 1, 0)
+
+[node name="Ball" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_2386b")
+
+[node name="HitBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5r3x1")
+
+[node name="Sprite" type="TextureRect" parent="."]
+texture_filter = 1
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+texture = ExtResource("1_q4oo8")
+
+[node name="FadeParticles" type="CPUParticles2D" parent="."]
+amount = 10
+texture = ExtResource("1_q4oo8")
+spread = 0.0
+gravity = Vector2(0, 0)
+damping_min = 5.0
+damping_max = 5.0
+damping_curve = SubResource("Curve_bk3sm")
+scale_amount_curve = SubResource("Curve_0634a")
+color_ramp = SubResource("Gradient_nldlj")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+
+[node name="CollideSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_hgdmg")
+volume_db = 12.0

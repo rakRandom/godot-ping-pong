@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dla0imbj1hi4a"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_x3vvb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_clgiy"]
+size = Vector2(20, 154)
+
+[node name="Player" type="CharacterBody2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -10.0
+offset_top = -77.0
+offset_right = 10.0
+offset_bottom = 77.0
+texture = SubResource("CanvasTexture_x3vvb")
+
+[node name="PlayerHitBox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_clgiy")
