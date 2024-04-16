@@ -3,7 +3,7 @@ extends CharacterBody2D
 @onready var fade_particles = $FadeParticles
 @onready var collide_sound = $CollideSound
 
-const SPEED: int = 750
+const SPEED: int = 1000
 var direction: Vector2 = Vector2.ZERO
 
 
